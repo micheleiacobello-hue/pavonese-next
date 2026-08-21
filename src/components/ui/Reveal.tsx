@@ -1,17 +1,28 @@
 'use client';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, type ReactNode } from 'react';
 
-// Aggiunge .in quando l’elemento entra nel viewport (rispetta reduced-motion via CSS).
-export function Reveal({ children, className = '', as: Tag = 'div' }:
-  { children: React.ReactNode; className?: string; as?: keyof React.JSX.IntrinsicElements }) {
-  const ref = useRef<HTMLElement>(null);
+// Aggiunge la classe .in quando l'elemento entra nel viewport
+// (l'animazione vera è nel CSS; rispetta prefers-reduced-motion).
+export function Reveal({ children, className = '' }: { children: ReactNode; className?: string }) {
+  const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    const el = ref.current; if (!el) return;
-    const io = new IntersectionObserver(([e]) => {
-      if (e.isIntersecting) { el.classList.add('in'); io.disconnect(); }
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-    io.observe(el); return () => io.disconnect();
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          el.classList.add('in');
+          io.disconnect();
+        }
+      },
+      { threshold: 0.12, rootMargin: '0px 0px -40px 0px' },
+    );
+    io.observe(el);
+    return () => io.disconnect();
   }, []);
-  // @ts-expect-error ref polimorfico su tag dinamico
-  return <Tag ref={ref} className={`reveal ${className}`}>{children}</Tag>;
+  return (
+    <div ref={ref} className={`reveal ${className}`}>
+      {children}
+    </div>
+  );
 }
