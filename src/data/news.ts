@@ -12,7 +12,7 @@ export const news: NewsArticle[] = [
     excerpt: 'Una ripresa di carattere ribalta il risultato davanti a un pubblico delle grandi occasioni.' },
   { slug: 'nuovo-mister', category: 'Mercato', date: '2026-06-08', cover: '/img/foto/azione1.jpg',
     title: 'Ufficiale: Marco Bianchi è il nuovo allenatore',
-    excerpt: 'Contratto biennale per il tecnico. «Qui c'è un progetto serio», le sue prime parole.' },
+    excerpt: 'Contratto biennale per il tecnico. «Qui c’è un progetto serio», le sue prime parole.' },
   { slug: 'femminile-promozione', category: 'Femminile', date: '2026-06-03', cover: '/img/news/femminile.jpg',
     title: 'La squadra femminile festeggia la promozione',
     excerpt: 'Stagione da incorniciare: le ragazze salgono di categoria con due giornate d’anticipo.' },
