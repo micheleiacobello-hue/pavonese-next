@@ -1,0 +1,12 @@
+type P = { className?: string };
+const s = (p: React.SVGProps<SVGSVGElement>) => ({ viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 2, ...p });
+export const ArrowRight = ({ className = 'w-4 h-4' }: P) => (<svg {...s({ className })} strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>);
+export const Search = ({ className = 'w-4 h-4' }: P) => (<svg {...s({ className })} strokeLinecap="round"><circle cx="11" cy="11" r="7" /><path d="M21 21l-4-4" /></svg>);
+export const Mail = ({ className = 'w-4 h-4' }: P) => (<svg {...s({ className })}><rect x="3" y="5" width="18" height="14" rx="2" /><path d="M3 7l9 6 9-6" /></svg>);
+export const Phone = ({ className = 'w-4 h-4' }: P) => (<svg {...s({ className })}><path d="M5 4h4l2 5-3 2a14 14 0 006 6l2-3 5 2v4a2 2 0 01-2 2A17 17 0 013 6a2 2 0 012-2Z" /></svg>);
+export const Pin = ({ className = 'w-4 h-4' }: P) => (<svg {...s({ className })}><path d="M12 22s7-7 7-12a7 7 0 10-14 0c0 5 7 12 7 12Z" /><circle cx="12" cy="10" r="2.5" /></svg>);
+export const Clock = ({ className = 'w-4 h-4' }: P) => (<svg {...s({ className })}><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></svg>);
+export const Facebook = ({ className = 'w-4 h-4' }: P) => (<svg viewBox="0 0 24 24" fill="currentColor" className={className}><path d="M14 9h3V6h-3c-2 0-3 1-3 3v2H9v3h2v7h3v-7h2.5l.5-3H14V9.5c0-.3.2-.5.5-.5Z" /></svg>);
+export const Instagram = ({ className = 'w-4 h-4' }: P) => (<svg {...s({ className })}><rect x="4" y="4" width="16" height="16" rx="4" /><circle cx="12" cy="12" r="3.5" /><circle cx="17" cy="7" r="1" fill="currentColor" stroke="none" /></svg>);
+export const Youtube = ({ className = 'w-4 h-4' }: P) => (<svg viewBox="0 0 24 24" fill="currentColor" className={className}><path d="M22 12c0-2-.2-3.3-.4-4-.3-.9-1-1.5-1.9-1.7C18 6 12 6 12 6s-6 0-7.7.3C3.4 6.5 2.7 7.1 2.4 8 2.2 8.7 2 10 2 12s.2 3.3.4 4c.3.9 1 1.5 1.9 1.7C6 18 12 18 12 18s6 0 7.7-.3c.9-.2 1.6-.8 1.9-1.7.2-.7.4-2 .4-4Zm-12 2.5v-5l4.5 2.5L10 14.5Z" /></svg>);
+export const Shirt = ({ className = 'w-4/5' }: P) => (<svg viewBox="0 0 100 120" className={className} xmlns="http://www.w3.org/2000/svg"><path d="M35 16 L20 24 L10 44 L22 52 L26 46 V108 H74 V46 L78 52 L90 44 L80 24 L65 16 C62 24 38 24 35 16 Z" fill="#1A1B20" stroke="rgba(255,255,255,.18)" strokeWidth="1.5" /></svg>);
