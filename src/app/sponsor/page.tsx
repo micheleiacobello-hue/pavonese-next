@@ -3,10 +3,11 @@ import Link from 'next/link';
 import { PageHeader } from '@/components/ui/PageHeader';
 import { SponsorCard } from '@/components/cards/SponsorCard';
 import { Reveal } from '@/components/ui/Reveal';
-import { sponsorsByTier } from '@/data/sponsors';
+import { getSponsors } from '@/sanity/queries';
 import type { Sponsor, SponsorTier } from '@/lib/types';
 
-export const metadata: Metadata = { title: 'Sponsor & Partner', description: 'Chi sostiene la Calcio Pavonese. Diventa partner del club.' };
+export const revalidate = 60;
+export const metadata: Metadata = { title: 'Sponsor & Partner', description: 'Chi sostiene l’A.S.D. Calcio Pavonese. Diventa partner del club.' };
 
 const tiers: { key: SponsorTier; label: string; cls: string; cols: string }[] = [
   { key: 'main', label: 'Main Sponsor', cls: 'tag-main', cols: 'grid-cols-1' },
@@ -15,22 +16,23 @@ const tiers: { key: SponsorTier; label: string; cls: string; cols: string }[] = 
   { key: 'partner', label: 'Partner', cls: 'tag-partner', cols: 'sm:grid-cols-2 lg:grid-cols-3' },
 ];
 
-export default function SponsorPage() {
+export default async function SponsorPage() {
+  const all = await getSponsors();
   return (
     <>
-      <PageHeader title="Sponsor & Partner" desc="Chi sostiene la Calcio Pavonese. Diventa partner del club." crumbs={[{ label: 'Home', href: '/' }, { label: 'Sponsor' }]} />
+      <PageHeader title="Sponsor & Partner" desc="Chi sostiene il club. Diventa partner." crumbs={[{ label: 'Home', href: '/' }, { label: 'Sponsor' }]} />
       <section className="section">
         <div className="wrap">
           {tiers.map((t) => {
-            const list: Sponsor[] = sponsorsByTier(t.key);
+            const list: Sponsor[] = all.filter((s) => s.tier === t.key);
             if (!list.length) return null;
             return (
               <div key={t.key} className="mb-12">
-                <h3 className="mb-4.5 flex items-center gap-3 text-[1.2rem]" style={{ fontFamily: 'var(--font-archivo)', fontWeight: 800 }}>
+                <h3 className="mb-4 flex items-center gap-3 text-[1.2rem]" style={{ fontFamily: 'var(--font-archivo)', fontWeight: 800 }}>
                   <span className={`tag ${t.cls}`}>{t.label}</span>
                 </h3>
                 <div className={`grid gap-[22px] ${t.cols}`}>
-                  {list.map((s, i) => <SponsorCard key={s.name} sponsor={s} index={i} big={t.key === 'main'} />)}
+                  {list.map((s, i) => <SponsorCard key={s.name + i} sponsor={s} index={i} big={t.key === 'main'} />)}
                 </div>
               </div>
             );

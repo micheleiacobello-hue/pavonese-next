@@ -3,20 +3,20 @@ import { PageHeader } from '@/components/ui/PageHeader';
 import { ContactForm } from '@/components/forms/ContactForm';
 import { Reveal } from '@/components/ui/Reveal';
 import { Pin, Phone, Mail, Clock } from '@/components/ui/icons';
-import { site } from '@/data/site';
+import { getSiteSettings } from '@/sanity/queries';
 
+export const revalidate = 60;
 export const metadata: Metadata = { title: 'Contatti', description: 'Contatti, sede e mappa dell’A.S.D. Calcio Pavonese.' };
 
-const info = [
-  { Icon: Pin, label: 'Sede & Stadio', value: site.address },
-  { Icon: Phone, label: 'Telefono', value: site.phone },
-  { Icon: Mail, label: 'Email', value: site.email },
-  { Icon: Clock, label: 'Segreteria', value: 'Lun-Ven 17:00 — 19:30' },
-];
-
-export default function ContattiPage() {
-  // Embed mappa: sostituire con un <iframe> Google Maps reale usando site.geo
-  const mapSrc = `https://www.google.com/maps?q=${site.geo.lat},${site.geo.lng}&z=15&output=embed`;
+export default async function ContattiPage() {
+  const s = await getSiteSettings();
+  const info = [
+    { Icon: Pin, label: 'Sede & Stadio', value: s.address },
+    { Icon: Phone, label: 'Telefono', value: s.phone },
+    { Icon: Mail, label: 'Email', value: s.email },
+    { Icon: Clock, label: 'Segreteria', value: 'Lun-Ven 17:00 — 19:30' },
+  ];
+  const mapSrc = `https://www.google.com/maps?q=${encodeURIComponent(s.address)}&z=15&output=embed`;
   return (
     <>
       <PageHeader title="Contatti" desc="Siamo a tua disposizione. Scrivici o vieni a trovarci allo stadio." crumbs={[{ label: 'Home', href: '/' }, { label: 'Contatti' }]} />
@@ -32,7 +32,7 @@ export default function ContattiPage() {
               ))}
             </div>
             <div className="mt-6 overflow-hidden rounded-card border border-[var(--bordo)]" style={{ aspectRatio: '16/8' }}>
-              <iframe src={mapSrc} title="Mappa sede Calcio Pavonese" width="100%" height="100%" style={{ border: 0 }} loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
+              <iframe src={mapSrc} title="Mappa sede" width="100%" height="100%" style={{ border: 0 }} loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
             </div>
           </Reveal>
           <Reveal><ContactForm /></Reveal>

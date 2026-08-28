@@ -4,12 +4,14 @@ import { PageHeader } from '@/components/ui/PageHeader';
 import { SectionTitle } from '@/components/ui/SectionTitle';
 import { Reveal } from '@/components/ui/Reveal';
 import { ArrowRight } from '@/components/ui/icons';
-import { youthTeams } from '@/data/youth';
+import { getYouth } from '@/sanity/queries';
 
-export const metadata: Metadata = { title: 'Settore Giovanile', description: 'Le squadre giovanili dell’A.S.D. Calcio Pavonese, dai Piccoli Amici agli Juniores.' };
+export const revalidate = 60;
+export const metadata: Metadata = { title: 'Settore Giovanile', description: 'Le squadre giovanili del club, dai Piccoli Amici agli Juniores.' };
 const bg = ['ph--a', 'ph--b', 'ph--c', 'ph--d'];
 
-export default function SettoreGiovanilePage() {
+export default async function SettoreGiovanilePage() {
+  const teams = await getYouth();
   return (
     <>
       <PageHeader title="Settore Giovanile" desc="Il cuore del club: crescita, divertimento e valori dai Piccoli Amici agli Juniores." crumbs={[{ label: 'Home', href: '/' }, { label: 'Settore Giovanile' }]} />
@@ -17,7 +19,7 @@ export default function SettoreGiovanilePage() {
         <div className="wrap">
           <SectionTitle eyebrow="Le categorie" title="Tutte le squadre giovanili" desc="Seleziona una categoria per scoprire staff, calendario e informazioni." />
           <div className="grid gap-[22px] sm:grid-cols-2 lg:grid-cols-3">
-            {youthTeams.map((y, i) => (
+            {teams.map((y, i) => (
               <Reveal key={y.slug}>
                 <Link href={`/settore-giovanile/${y.slug}`} className="group relative flex min-h-[220px] items-end overflow-hidden rounded-card p-[22px] text-white">
                   <div className={`ph ${bg[i % bg.length]} absolute inset-0 -z-10 transition-transform duration-500 group-hover:scale-105`} />
