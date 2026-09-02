@@ -19,6 +19,7 @@ export const site = {
 export const navItems = [
   { label: 'Home', href: '/' },
   { label: 'News', href: '/news' },
+  { label: 'Calendario', href: '/calendario' },
   { label: 'Gallery', href: '/gallery' },
   { label: 'Società', href: '/societa' },
   { label: 'Prima Squadra', href: '/prima-squadra' },
