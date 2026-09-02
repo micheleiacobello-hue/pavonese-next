@@ -4,15 +4,16 @@ import { SectionTitle } from '@/components/ui/SectionTitle';
 
 export const metadata: Metadata = {
   title: 'Calendario & Risultati',
-  description: 'Calendario, risultati e prossima partita della Prima Squadra, aggiornati automaticamente.',
+  description: 'Prossima partita, risultati e classifica della Prima Squadra, aggiornati automaticamente.',
 };
 
-// I widget sono iframe di Tuttocampo: si aggiornano da soli dalla fonte ufficiale.
-// Per cambiarli in futuro basta sostituire l'indirizzo "src" qui sotto con il nuovo
-// codice generato su tuttocampo.it/WidgetApi (da loggati).
-const GUID = '570ce2a7-5474-11e4-b2c1-448a5b2c3468';
+// Widget iframe di Tuttocampo: si aggiornano da soli dalla fonte ufficiale.
+// Per cambiarli in futuro basta sostituire il GUID qui sotto con quello del nuovo
+// widget generato su tuttocampo.it/WidgetApi (da loggati).
+const GUID = '60a1b16d-446f-471c-9d39-ca6936f823d7';
 const PROSSIMA = `https://www.tuttocampo.it/WidgetV2/ProssimaPartita/${GUID}`;
 const RISULTATI = `https://www.tuttocampo.it/WidgetV2/Risultati/${GUID}`;
+const CLASSIFICA = `https://www.tuttocampo.it/WidgetV2/Classifica/${GUID}`;
 
 export default function CalendarioPage() {
   return (
@@ -24,20 +25,22 @@ export default function CalendarioPage() {
       />
       <section className="section">
         <div className="wrap">
-          <div className="grid items-start gap-10 lg:grid-cols-2">
-            <div>
-              <SectionTitle eyebrow="Prossimo impegno" title="Prossima partita" />
-              <div className="tc-embed">
-                <iframe src={PROSSIMA} title="Prossima partita" height={350} scrolling="no" frameBorder={0} loading="lazy" />
-              </div>
-            </div>
+          <div className="mx-auto max-w-[500px]">
+            <SectionTitle eyebrow="Prossimo impegno" title="Prossima partita" center />
+            <div className="tc-embed"><iframe src={PROSSIMA} title="Prossima partita" height={350} scrolling="no" frameBorder={0} loading="lazy" /></div>
+          </div>
+
+          <div className="mt-14 grid items-start gap-10 lg:grid-cols-2">
             <div>
               <SectionTitle eyebrow="Serie D — Girone B" title="Risultati" />
-              <div className="tc-embed">
-                <iframe src={RISULTATI} title="Risultati" height={600} scrolling="no" frameBorder={0} loading="lazy" />
-              </div>
+              <div className="tc-embed"><iframe src={RISULTATI} title="Risultati" height={600} scrolling="no" frameBorder={0} loading="lazy" /></div>
+            </div>
+            <div>
+              <SectionTitle eyebrow="Serie D — Girone B" title="Classifica" />
+              <div className="tc-embed"><iframe src={CLASSIFICA} title="Classifica" height={800} scrolling="no" frameBorder={0} loading="lazy" /></div>
             </div>
           </div>
+
           <p className="mt-8 text-sm text-grigio">Dati forniti da Tuttocampo e aggiornati automaticamente.</p>
         </div>
       </section>
