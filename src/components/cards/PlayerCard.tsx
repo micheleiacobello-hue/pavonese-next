@@ -9,7 +9,7 @@ export function PlayerCard({ player }: { player: Player }) {
   return (
     <Reveal>
       <article className="card group h-full">
-        <div className="relative aspect-[3/3.5] overflow-hidden transition-colors" style={{ background: 'linear-gradient(160deg,#202028,#15161A)' }}>
+        <div className="relative aspect-[3/4] overflow-hidden transition-colors" style={{ background: 'linear-gradient(160deg,#202028,#15161A)' }}>
           {hasPhoto && <Image src={player.photo!} alt={player.name} fill sizes="(max-width:1024px) 50vw, 25vw" className="object-cover" />}
           <span className="absolute left-3 top-3 z-10 rounded bg-oro px-2 py-1 text-[.6rem] uppercase tracking-wide text-white" style={{ fontFamily: 'var(--font-archivo)', fontWeight: 800 }}>{player.position}</span>
           <span className="display absolute -bottom-3.5 -right-1.5 z-[1] leading-none text-white/10" style={{ fontSize: '7rem' }}>{player.number}</span>
