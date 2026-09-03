@@ -6,7 +6,7 @@ export const site = {
   address: 'Stadio Comunale «Le Piume», Via dello Sport 21, Pavona (RM)',
   phone: '+39 06 1234 5678',
   email: 'info@pavonesecalcio.it',
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.pavonesecalcio.it',
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.calciopavonese.it',
   social: {
     facebook: 'https://facebook.com/pavonesecalcio',
     instagram: 'https://instagram.com/pavonesecalcio',
