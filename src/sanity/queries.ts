@@ -11,7 +11,7 @@ import type { NewsArticle, Player, StaffMember, Sponsor, YouthTeam } from '@/lib
 
 /**
  * Layer dati: legge da Sanity se configurato, altrimenti usa i dati statici.
- * Ogni funzione ha un fallback, così il sito funziona sempre e — man mano
+ * Ogni funzione ha un fallback, cosi' il sito funziona sempre e — man mano
  * che il pannello viene riempito — i contenuti reali sostituiscono i demo.
  */
 
@@ -103,13 +103,14 @@ export async function getYouthCategory(slug: string): Promise<YouthTeam | undefi
 
 /* ===================== IMPOSTAZIONI / SOCIETA' / CONTATTI ===================== */
 export interface SiteSettings {
-  name: string; address: string; phone: string; email: string;
+  name: string; address: string; phone: string; email: string; officeHours: string;
   facebook?: string; instagram?: string; youtube?: string;
   foundedYear?: string; about: string[];
   nextMatch: { competition: string; home: string; away: string; day: string; time: string; venue: string };
 }
 const staticSettings: SiteSettings = {
   name: staticSite.name, address: staticSite.address, phone: staticSite.phone, email: staticSite.email,
+  officeHours: 'Lun-Ven 17:00 — 19:30',
   facebook: staticSite.social.facebook, instagram: staticSite.social.instagram, youtube: staticSite.social.youtube,
   foundedYear: undefined,
   about: [
@@ -121,13 +122,14 @@ const staticSettings: SiteSettings = {
 export async function getSiteSettings(): Promise<SiteSettings> {
   if (!sanityEnabled || !client) return staticSettings;
   try {
-    const s = await client.fetch(`*[_type=="siteSettings"][0]{ name, address, phone, email, facebook, instagram, youtube, foundedYear, about, nextMatch }`);
+    const s = await client.fetch(`*[_type=="siteSettings"][0]{ name, address, phone, email, officeHours, facebook, instagram, youtube, foundedYear, about, nextMatch }`);
     if (!s) return staticSettings;
     return {
       name: s.name ?? staticSettings.name,
       address: s.address ?? staticSettings.address,
       phone: s.phone ?? staticSettings.phone,
       email: s.email ?? staticSettings.email,
+      officeHours: s.officeHours ?? staticSettings.officeHours,
       facebook: s.facebook ?? staticSettings.facebook,
       instagram: s.instagram ?? staticSettings.instagram,
       youtube: s.youtube ?? staticSettings.youtube,
